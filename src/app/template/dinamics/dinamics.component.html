@@ -1,0 +1,108 @@
+<h2>Template: Dinamics</h2>
+<hr>
+
+<form autocomplete="off" (ngSubmit)="save()" #myForm="ngForm">
+    <div class="mb-3 row">
+        <label for="name" class="col-sm-3 col-form-label">
+            Name
+        </label>
+        <div class="col-sm-9">
+            <input 
+                id="name" 
+                [ngModel]="person.name"
+                type="text" 
+                class="form-control"
+                name="name" 
+                required
+                placeholder="Person name">
+            <span class="form-text text-danger" *ngIf="myForm.controls?.name?.invalid && myForm.controls?.name?.touched">
+                Required field
+            </span>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="add" class="col-sm-3 col-form-label">
+            Add
+        </label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <input 
+                    id="add" 
+                    (keyup.enter)="addFavorite()"
+                    [(ngModel)]="newFav"
+                    type="text" 
+                    class="form-control"
+                    name="add" 
+                    required
+                    placeholder="Add...">
+                <button 
+                (click)="addFavorite()"
+                type="button" 
+                class="btn btn-outline-primary">
+                    Add +
+                </button>                
+            </div>
+            <span 
+            class="form-text text-danger" 
+            *ngIf="myForm.controls?.add?.invalid && myForm.controls?.add?.touched">
+                Required field
+            </span>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="favorites" class="col-sm-3 col-form-label">
+            Favorites
+        </label>
+        <div class="col-sm-9">
+            <div class="input-group mb-2" *ngFor="let item of person.favorites; let i=index">
+                <input 
+                [(ngModel)]="item.favorite"
+                id="favorite_{{item.id}}" 
+                type="text" 
+                class="form-control"
+                name="favorite_{{item.id}}" 
+                required
+                placeholder="Something...">
+                <button 
+                type="button" 
+                class="btn btn-outline-danger" 
+                (click)="delete(i)">
+                    Eliminar -
+                </button>
+            </div>
+            <!-- <span class="form-text text-danger" *ngIf="myForm.controls?.favorite1?.invalid && myForm.controls?.favorite1?.touched">
+                Required field
+            </span> -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button [disabled]="!myForm.valid" class="btn btn-primary float-end" type="button" (click)="save()">
+                Save
+            </button>
+        </div>
+    </div>
+</form>
+
+<div class="row row-cols-1 row-cols-md-2">
+    <div class="col">
+        <span>Person</span>
+        <pre>{{ person | json }}</pre>
+
+        <span>Valid</span>
+        <pre>{{ myForm.valid }}</pre>
+
+        <span>Pristine</span>
+        <pre>{{ myForm.pristine }}</pre>
+
+        <span>Touched</span>
+        <pre>{{ myForm.touched }}</pre>
+
+        <span>Value</span>
+        <pre>{{ myForm.value | json}}</pre>
+
+    </div>
+</div>
