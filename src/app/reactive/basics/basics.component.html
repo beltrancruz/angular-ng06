@@ -1,1 +1,80 @@
-<p>basics works!</p>
+<h2>Reactives: Basics</h2>
+<hr>
+<div class="row">
+    <div class="col">
+        <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="save()">
+            <div class="row mb-3">
+                <label for="inputProduct" class="col-sm-3 col-form-label">Product</label>
+                <div class="col-sm-9">
+                    <input 
+                        type="text" 
+                        formControlName="name"
+                        class="form-control" 
+                        placeholder="Product name..."
+                        id="inputProduct" >
+                    <span *ngIf="verifyFieldValidation('name')" class="form-text text-danger">
+                        It must has at least 3 letters.
+                    </span>
+                    <!-- <div class="invalid-feedback">
+                        It must has at least 3 letters.
+                    </div> -->
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputProduct" class="col-sm-3 col-form-label">Price</label>
+                <div class="col-sm-9">
+                    <input 
+                        type="number" 
+                        formControlName="price"
+                        class="form-control" 
+                        placeholder="Product price..."
+                        id="inputProduct">
+                    <span *ngIf="verifyFieldValidation('price')" class="form-text text-danger">
+                        It must be zero or greater.
+                    </span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputProduct" class="col-sm-3 col-form-label">Stock</label>
+                <div class="col-sm-9">
+                    <input 
+                        type="number" 
+                        formControlName="stock"
+                        class="form-control" 
+                        placeholder="Product stock..."
+                        id="inputProduct">
+                    <span *ngIf="verifyFieldValidation('stock')" class="form-text text-danger">
+                        It must be zero or greater.
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <!-- [disabled]="myForm.invalid"  -->
+                    <button 
+                    type="submit" 
+                    class="btn btn-primary float-end">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2">
+    <div class="col">
+        <span>Valid</span>
+        <pre>{{ myForm.valid }}</pre>
+
+        <span>Pristine</span>
+        <pre>{{ myForm.pristine }}</pre>
+
+        <span>Touched</span>
+        <pre>{{ myForm.touched }}</pre>
+
+        <span>Value</span>
+        <pre>{{ myForm.value | json}}</pre>
+
+    </div>
+</div>
